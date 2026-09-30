@@ -2,7 +2,7 @@
 <html lang="ko">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>오류 제보 — 초등 임용 정리 노트</title>
+<title>피드백 — 초등 임용 정리 노트</title>
 <link rel="stylesheet" href="kit.css?v=5e631882">
 <style>
 /* 오류 제보 — 로그인 없이 보낸다(구글 폼에 조용히 제출 · 응답은 폼 소유자 시트에 쌓이고 루틴이 본다) · 앱 디자인 언어 · kit.css 토큰 */
@@ -31,7 +31,7 @@ textarea::placeholder{color:var(--ter);}
 </style>
 <div class="in">
   <a class="back" href="index.html"><svg viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 1.5 1.5 8.5l7 7"/></svg>목차</a>
-  <h1>오류 제보</h1>
+  <h1>피드백</h1>
   <form id="f">
     <div class="grp">
       <div class="row"><label for="s">과목</label><select id="s" required><option value="">선택</option></select><svg class="cv" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div>
@@ -39,7 +39,7 @@ textarea::placeholder{color:var(--ter);}
       <div class="row"><label for="p">절</label><select id="p" disabled><option value="">선택 안 함</option></select><svg class="cv" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div>
     </div>
     <p class="cap">단원·절은 선택</p>
-    <div class="grp"><textarea id="t" required placeholder="틀린 내용"></textarea></div>
+    <div class="grp"><textarea id="t" required placeholder="고칠 내용"></textarea></div>
     <button class="send" id="b" type="submit" disabled>보내기</button>
   </form>
   <div class="done" id="ok"><b>보냈어요</b><p></p><a href="index.html">목차로</a></div>

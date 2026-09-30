@@ -27,13 +27,13 @@
    'body.rn-open .rn-thm{display:none}@media print{.rn-fab,.rn-pan,.rn-thm{display:none!important}}';
   document.head.appendChild(css);
   var fab=document.createElement('button'); fab.className='rn-fab'; fab.type='button';
-  fab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>제보';
-  var pan=document.createElement('div'); pan.className='rn-pan'; pan.setAttribute('role','dialog'); pan.setAttribute('aria-label','오류 제보');
-  pan.innerHTML='<div class="rn-hd"><b>오류 제보</b><button class="rn-x" type="button" aria-label="닫기">✕</button></div>'+
+  fab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>피드백';
+  var pan=document.createElement('div'); pan.className='rn-pan'; pan.setAttribute('role','dialog'); pan.setAttribute('aria-label','피드백');
+  pan.innerHTML='<div class="rn-hd"><b>피드백</b><button class="rn-x" type="button" aria-label="닫기">✕</button></div>'+
     '<div class="rn-bd"><div class="rn-grp"><div class="rn-row"><span>과목</span><div class="v"></div></div>'+
     '<div class="rn-row"><span>단원</span><select class="rn-g"><option value="">선택 안 함</option></select></div>'+
     '<div class="rn-row"><span>절</span><select class="rn-p"><option value="">선택 안 함</option></select></div></div>'+
-    '<textarea class="rn-ta" placeholder="틀린 내용"></textarea>'+
+    '<textarea class="rn-ta" placeholder="고칠 내용"></textarea>'+
     '<button class="rn-send" type="button" disabled>보내기</button><div class="rn-ok">보냈어요</div></div>';
   document.body.appendChild(fab); document.body.appendChild(pan);
   /* 테마 — 자동 → 라이트 → 다크 (10-01 동하 「다크 싫어하는 사람도 · 프린트도」) · 첫 화면 고르기와 같은 rn_theme */
