@@ -428,6 +428,11 @@ h4.lab{font-size:13px;line-height:18px;font-weight:600;color:var(--sec);margin:1
 :root.v2.dae-big .blk table.tauto{table-layout:auto;}
 :root.v2.dae-big .blk table .nw1{white-space:nowrap;}
 
+:root.v2 .blk table.cgrid{width:auto;table-layout:auto;align-self:flex-start;flex:none;}
+:root.v2 .blk table.cgrid td:not(.h){text-align:center;min-width:3.2em;padding-right:0;}
+:root.v2 .blk table.cgrid th{text-align:center;padding:6px .8em;}
+:root.v2 .blk table.cgrid td.h{padding-right:1em;white-space:nowrap;}
+
 :root.v2.dae-big .mk.lhc{display:none;}
 :root.v2.dae-big .lanes>*{border-left:0;}
 :root.v2.dae-big .vchain:not(.hz){border-left:0;padding-left:1em;}   

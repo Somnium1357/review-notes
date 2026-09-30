@@ -363,6 +363,9 @@
       document.querySelectorAll('main.wrap .blk table').forEach(function(t){
         var rows=[].filter.call(t.rows, function(r){ return r.cells.length>=2; }); if(!rows.length) return;
          
+        var body=[].filter.call(t.querySelectorAll('td'), function(c){ return !c.classList.contains('h'); });
+        if(body.length>=4 && body.every(function(c){ return c.textContent.trim().length<=2; })){ t.classList.add('cgrid'); return; }
+         
         if([].some.call(t.querySelectorAll('td,th'), function(c){ return c.rowSpan>1 || c.colSpan>1; })) return;
         t.classList.add('tauto');
         var firsts=rows.map(function(r){ return r.cells[0]; }).filter(function(c){ return c.colSpan===1; });
