@@ -22,7 +22,9 @@
    '.rn-row .v{flex:1;text-align:right;font-size:15px}'+
    '.rn-ta{display:block;box-sizing:border-box;width:100%;min-height:130px;margin:12px 0 0;padding:12px 16px;border:0;border-radius:18px;background:var(--card);font:inherit;font-size:16px;line-height:1.5;color:var(--label);resize:vertical}'+
    '.rn-ta::placeholder{color:var(--ter)}.rn-send{display:block;width:100%;min-height:48px;margin-top:12px;border:0;border-radius:24px;background:var(--acc);color:#fff;font:inherit;font-size:17px;font-weight:600;cursor:pointer}.rn-send:disabled{opacity:.45}'+
-   '.rn-ok{display:none;text-align:center;color:var(--sec);padding:10px 0}';
+   '.rn-ok{display:none;text-align:center;color:var(--sec);padding:10px 0}'+
+   '.rn-thm{position:fixed;right:16px;bottom:calc(68px + env(safe-area-inset-bottom));z-index:60;width:44px;height:44px;border:0;border-radius:22px;background:var(--card);color:var(--label);box-shadow:0 0 0 .5px var(--sep),0 8px 24px rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;font:inherit;font-size:11px;font-weight:600}'+
+   'body.rn-open .rn-thm{display:none}@media print{.rn-fab,.rn-pan,.rn-thm{display:none!important}}';
   document.head.appendChild(css);
   var fab=document.createElement('button'); fab.className='rn-fab'; fab.type='button';
   fab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>제보';
@@ -34,6 +36,12 @@
     '<textarea class="rn-ta" placeholder="무엇이 틀렸는지 알려 주세요 (로그인 필요 없어요)"></textarea>'+
     '<button class="rn-send" type="button" disabled>보내기</button><div class="rn-ok">보냈어요 · 고마워요</div></div>';
   document.body.appendChild(fab); document.body.appendChild(pan);
+  /* 테마 — 자동 → 라이트 → 다크 (10-01 동하 「다크 싫어하는 사람도 · 프린트도」) · 첫 화면 고르기와 같은 rn_theme */
+  var thm=document.createElement('button'); thm.className='rn-thm'; thm.type='button'; var TH=['','paper','dark'], TL={'':'자동','paper':'라이트','dark':'다크'};
+  function th(){ try{ return localStorage.getItem('rn_theme')||''; }catch(e){ return ''; } }
+  function paint(){ var v=th(); thm.textContent=TL[v]; thm.setAttribute('aria-label','화면 테마: '+TL[v]); }
+  thm.onclick=function(){ var v=TH[(TH.indexOf(th())+1)%3]; try{ v?localStorage.setItem('rn_theme',v):localStorage.removeItem('rn_theme'); }catch(e){} var r=document.documentElement; v?r.dataset.theme=v:r.removeAttribute('data-theme'); paint(); };
+  paint(); document.body.appendChild(thm);
   var q=function(s){return pan.querySelector(s)}, selG=q('.rn-g'), selP=q('.rn-p'), ta=q('.rn-ta'), send=q('.rn-send'), ok=q('.rn-ok');
   q('.v').textContent=SUBJ;
   G.forEach(function(g,i){ var o=document.createElement('option'); o.value=i; o.textContent=g[0]; selG.appendChild(o); });

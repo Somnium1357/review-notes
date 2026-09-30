@@ -1016,13 +1016,13 @@
   var root=document.documentElement;
   function apply(){
     var v=null, l=null;
-    try{ v=null; l=null; }catch(e){}
+    try{ v=localStorage.getItem('rn_theme'); }catch(e){}
     if(v==='b') v='dark'; else if(v==='c') v='paper';
     if(v==='white'||v==='paper'||v==='dark') root.dataset.theme=v; else root.removeAttribute('data-theme');
     if(l==='white'||l==='paper') root.dataset.light=l; else root.removeAttribute('data-light');
   }
   apply();
-  window.addEventListener('storage',function(e){ if(!e.key||/^cards_(theme|light)_v1$/.test(e.key)) apply(); });
+  window.addEventListener('storage',function(e){ if(!e.key||/^rn_theme$/.test(e.key)) apply(); });
 })();
 
 document.querySelectorAll('.mkf svg,.mkd svg,.converge>svg,.fork svg,.fig svg').forEach(function(e){
@@ -1143,3 +1143,6 @@ document.querySelectorAll('.mkf svg,.mkd svg,.converge>svg,.fork svg,.fig svg').
   window.addEventListener('load',fitTicks);
   var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(fitTicks,150);});
 })();
+
+/* 인쇄 = 늘 흰 바탕(다크·페이퍼여도) — 끝나면 원래대로 */
+(function(){var r=document.documentElement,k=null;addEventListener('beforeprint',function(){k=r.getAttribute('data-theme');r.dataset.theme='white';});addEventListener('afterprint',function(){if(k)r.dataset.theme=k;else r.removeAttribute('data-theme');});})();

@@ -15,6 +15,10 @@ body{margin:0;background:var(--bg);color:var(--label);}
 .grp a:active{background:var(--fill);}
 .in-foot{margin:16px 20px 0;font-size:13px;line-height:18px;color:var(--ter);}
 .in-foot a{color:var(--acc);text-decoration:none;}
+.in-th{display:inline-flex;margin:16px 16px 0;background:var(--fill);border-radius:9px;padding:2px;}
+.in-th button{font:inherit;font-size:13px;border:0;background:none;color:var(--sec);padding:5px 12px;border-radius:7px;cursor:pointer;}
+.in-th button.on{background:var(--card);color:var(--label);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.1);}
+@media print{.in-th,.in-foot{display:none;}}
 .grp a svg{width:8px;height:14px;color:var(--ter);flex:0 0 auto;}
 @media (max-width:430px){ .in{padding:40px 16px 56px;} .in h1{font-size:28px;line-height:34px;} }
 </style>
@@ -34,7 +38,10 @@ body{margin:0;background:var(--bg);color:var(--label);}
     <a href="11.통합교과.html">통합교과<svg viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg></a>
     <a href="13.총창.html">총창<svg viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg></a>
   </nav>
+  <div class="in-th" role="group" aria-label="화면 테마"><button data-th="">자동</button><button data-th="paper">라이트</button><button data-th="dark">다크</button></div>
   <p class="in-foot">틀린 내용을 발견하면 <a href="report.html">여기로 알려 주세요</a>(로그인 필요 없음 · <a href="https://github.com/Somnium1357/review-notes/issues/new">GitHub 이슈</a>도 돼요).</p>
 </div>
 <script src="kit.js?v=5e631882"></script>
+<script>(function(){var b=document.querySelectorAll('.in-th button');function sync(){var v='';try{v=localStorage.getItem('rn_theme')||'';}catch(e){}b.forEach(function(x){x.classList.toggle('on',x.dataset.th===v);});}
+b.forEach(function(x){x.onclick=function(){try{x.dataset.th?localStorage.setItem('rn_theme',x.dataset.th):localStorage.removeItem('rn_theme');}catch(e){} var r=document.documentElement; x.dataset.th?r.dataset.theme=x.dataset.th:r.removeAttribute('data-theme'); sync();};});sync();})();</script>
 </html>
