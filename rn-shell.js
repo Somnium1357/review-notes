@@ -1,7 +1,8 @@
 /* 브라우저용 틀 = 위키처럼(10-01 동하 「PWA가 아니라 브라우저라 왼쪽 사이드바가 안 맞음」 → 「헤더가 항상 있는 건 별로 · 위키라고 생각하면」
    → 「피커는 둘 다 별로 · 맨 위 경로는 빼든가」).
    넓은 화면(≥1000) = 머리 막대 없음 · 왼쪽 목차 늘 펼침(맨 위 「‹ 전체 과목」 + 과목 이름 · 맨 아래 피드백·테마) · 지금 읽는 절 강조.
-   좁은 화면 = 맨 위에만 막대(‹전체 과목 · 과목 · ☰ · 피드백 · 테마), 스크롤하면 같이 올라감 · 중간에서 위로 올리면 잠깐 내려오고 제목 = 지금 읽는 절.
+   좁은 화면 = 맨 위에만 막대(‹전체 과목 · 과목 · ☰ · 피드백 · 테마), 스크롤하면 같이 올라감 · 중간에서 위로 올리면 잠깐 내려온다(제목 = 과목 · 동하 「절 이름 말고」).
+   오른쪽 아래 = 맨 위로(한 화면 넘게 내려가면 나타남).
    그 밖에(브라우저 환경): 주소 끝이 읽는 절을 따라감(replaceState — 기록은 안 늘림) · 제목에 조용한 # 링크 복사(마우스 올릴 때만) ·
    접은 절도 Ctrl+F로 찾으면 펼쳐짐(hidden=until-found — 크롬·파이어폭스).
    판 원본·kit.js는 그대로 — kit이 만든 .sidebar/.tocbtn을 이 사본에서만 다시 배치한다. rn-theme.js·report-panel.js 다음에 붙는다. */
@@ -40,9 +41,13 @@
    '@media (min-width:1000px){.rn-bar{display:none}main.wrap{padding-top:40px!important}'+
      '.sidebar{top:0!important;transform:none!important;transition:none;padding-bottom:0}.scrim{display:none!important}'+
      'main.wrap{margin-left:max(300px,calc((100% - 1160px)/2))!important;width:min(calc(100% - 300px),1160px)!important;transition:none}}'+
-   '@media (max-width:999px){main.wrap{padding-top:calc(var(--rn-bar) + 28px)!important}.rn-sf,.rn-back{display:none}.sidebar{width:min(320px,86vw);max-width:none}}'+
-   'body.rn-open .rn-bar{display:none}'+
-   '@media print{.rn-bar,.rn-a{display:none!important}main.wrap{padding-top:0!important;margin-left:auto!important}}';
+   '@media (max-width:999px){body.tocopen .rn-top{display:none}main.wrap{padding-top:calc(var(--rn-bar) + 28px)!important}.rn-sf,.rn-back{display:none}.sidebar{width:min(320px,86vw);max-width:none}}'+
+   '.rn-top{position:fixed;right:calc(16px + env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom));z-index:29;width:44px;height:44px;border:0;border-radius:22px;padding:0;cursor:pointer;'+
+     'display:flex;align-items:center;justify-content:center;color:var(--label);background:var(--glass,var(--card));-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);'+
+     'box-shadow:0 0 0 .5px var(--sep),0 4px 14px rgba(0,0,0,.10);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s,transform .2s}'+
+   '.rn-top.on{opacity:1;transform:none;pointer-events:auto}.rn-top svg{width:20px;height:20px}'+
+   'body.rn-open .rn-bar,body.rn-open .rn-top{display:none}'+
+   '@media print{.rn-bar,.rn-a,.rn-top{display:none!important}main.wrap{padding-top:0!important;margin-left:auto!important}}';
   document.head.appendChild(css);
   var bar=document.createElement('div'); bar.className='rn-bar';
   bar.innerHTML='<a class="rn-home" href="index.html">'+BACK+'전체 과목</a><div class="rn-t"></div>'+
@@ -69,7 +74,11 @@
     sb.style.top=(bar.classList.contains('peek')?bh:Math.max(0,bh-scrollY))+'px'; }
   function fix(){ if(wide()&&!sb.classList.contains('open')){ sb.classList.add('open'); document.body.classList.add('tocopen'); dispatchEvent(new Event('resize')); } place(); }
   fix(); addEventListener('resize', fix);
-  var lastY=scrollY; addEventListener('scroll', function(){ var y=scrollY, bh=bar.offsetHeight||52;
+  /* 맨 위로 — 한 화면 넘게 내려가면 오른쪽 아래에 */
+  var top=document.createElement('button'); top.type='button'; top.className='rn-top'; top.setAttribute('aria-label','맨 위로');
+  top.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg>';
+  top.onclick=function(){ scrollTo({top:0,behavior:'smooth'}); }; document.body.appendChild(top);
+  var lastY=scrollY; addEventListener('scroll', function(){ var y=scrollY, bh=bar.offsetHeight||52; top.classList.toggle('on', y>innerHeight);
     if(wide()||y<=bh) bar.classList.remove('peek');
     else if(!sb.classList.contains('open')){ if(y<lastY-8) bar.classList.add('peek'); else if(y>lastY+4) bar.classList.remove('peek'); }
     lastY=y; place(); spy(); }, {passive:true});
@@ -77,7 +86,7 @@
   var links=[].slice.call(sb.querySelectorAll('a[href^="#"]')).map(function(a){ return [a, document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))]; }).filter(function(x){ return x[1]; });
   var on=null, hashT=0;
   function spy(){ var best=null, bt=-1e9, lim=innerHeight*.3; links.forEach(function(x){ if(!x[1].getClientRects().length) return; var t=x[1].getBoundingClientRect().top; if(t<=lim&&t>bt){ bt=t; best=x; } });
-    var a=best&&best[0]; title.textContent=(a&&scrollY>200)?a.textContent:SUBJ;
+    var a=best&&best[0];
     clearTimeout(hashT); hashT=setTimeout(function(){ var h=a&&scrollY>200?a.getAttribute('href'):''; if(location.hash!==h&&decodeURIComponent(location.hash)!==decodeURIComponent(h))
       history.replaceState(history.state,'',h||(location.pathname+location.search)); }, 250);
     if(a===on) return; if(on) on.classList.remove('rn-on'); on=a; if(on){ on.classList.add('rn-on');
