@@ -1,6 +1,6 @@
 /* 오류 제보 사이드 패널 — 판을 보면서 쓴다(10-01 동하 「리포트는 사이드바로 빼야 보면서 쓸 수 있지 않으려나」)
    publish_dist.py가 과목 페이지마다 붙인다(판 원본은 안 고침). 지금 읽는 단원·절을 자동으로 골라 두고, 보내기 = 구글 폼(저장용)에 조용히 제출.
-   넓은 화면 = 오른쪽 패널(본문을 옆으로 비킴) · 좁은 화면 = 아래 시트. */
+   넓은 화면 = 오른쪽에 떠 있는 패널(본문 폭을 안 바꾼다 — 10-01 동하 「열면 조판이 바뀌면서 스크롤이 돌아가 버림」) · 좁은 화면 = 아래 시트. */
 (function(){
   var TOC=window.RN_TOC||{}, FORM='https://docs.google.com/forms/d/e/1FAIpQLSfz6jnwKa5X7m2UGdgl0CS1w878pH9G4IJCBow2QKHcaJN0Yg/formResponse', E_SUBJ='entry.1832714038', E_TEXT='entry.524873215';
   var h1=document.querySelector('main.wrap h1'); var SUBJ=(h1?h1.textContent:document.title).replace(/^.*?(\d+\.)?/, function(m){return '';});
@@ -10,7 +10,7 @@
    '.rn-fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;gap:6px;height:44px;padding:0 16px;border:0;border-radius:22px;background:var(--card);color:var(--label);font:inherit;font-size:15px;font-weight:600;box-shadow:0 0 0 .5px var(--sep),0 8px 24px rgba(0,0,0,.16);cursor:pointer}'+
    '.rn-fab svg{width:18px;height:18px;color:var(--acc)}'+
    '.rn-pan{position:fixed;z-index:61;background:var(--bg);box-shadow:0 0 0 .5px var(--sep),0 12px 40px rgba(0,0,0,.22);display:flex;flex-direction:column;transition:transform .26s cubic-bezier(.2,.8,.2,1);font-size:17px;line-height:1.5;color:var(--label)}'+
-   '@media (min-width:760px){.rn-pan{top:0;right:0;bottom:0;width:360px;transform:translateX(105%)} body.rn-open{margin-right:360px} body.rn-open .rn-fab{display:none}}'+
+   '@media (min-width:760px){.rn-pan{top:12px;right:12px;bottom:12px;width:340px;border-radius:22px;transform:translateX(calc(100% + 24px))} body.rn-open .rn-fab{display:none}}'+
    '@media (max-width:759px){.rn-pan{left:0;right:0;bottom:0;height:62vh;border-radius:22px 22px 0 0;transform:translateY(105%)} body.rn-open .rn-fab{display:none}}'+
    'body.rn-open .rn-pan{transform:none}'+
    '.rn-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 8px 20px}.rn-hd b{font-size:22px;font-weight:700}'+
