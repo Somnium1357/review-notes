@@ -717,3 +717,7 @@ h4.lab{font-size:13px;line-height:18px;font-weight:600;color:var(--sec);margin:1
 :root.v2 .prose{max-width:44em;color:var(--v2ink2);}
 :root.v2 .prose>p{line-height:1.7;}
 
+
+/* 배포본: 라이트 = 순백(페이퍼 없음) */
+:root[data-theme="white"],:root[data-theme="paper"]{--bg:#FFFFFF; --card:#FFFFFF; --fill:#F2F2F7; --label:#1D1D1F; --sec:#6E6E73; --ter:#8E8E93; --sep:#E3E3E8; --glass:rgba(255,255,255,.78); --shadow:0 0 0 .5px rgba(0,0,0,.10),0 1px 3px rgba(0,0,0,.04); --gshadow:0 0 0 .5px rgba(0,0,0,.10),0 8px 28px rgba(0,0,0,.08); --acc:#007AFF; color-scheme:light;}
+@media (prefers-color-scheme:light){:root:not([data-theme]){--bg:#FFFFFF; --card:#FFFFFF; --fill:#F2F2F7; --label:#1D1D1F; --sec:#6E6E73; --ter:#8E8E93; --sep:#E3E3E8; --glass:rgba(255,255,255,.78); --shadow:0 0 0 .5px rgba(0,0,0,.10),0 1px 3px rgba(0,0,0,.04); --gshadow:0 0 0 .5px rgba(0,0,0,.10),0 8px 28px rgba(0,0,0,.08); --acc:#007AFF; color-scheme:light;}}
