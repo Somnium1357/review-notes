@@ -86,7 +86,9 @@
   /* 제목 옆 # = 그 절 주소 복사 */
   var toast=document.createElement('div'); toast.className='rn-toast'; document.body.appendChild(toast); var toT=0;
   function say(t){ toast.textContent=t; toast.classList.add('on'); clearTimeout(toT); toT=setTimeout(function(){ toast.classList.remove('on'); },1400); }
-  links.forEach(function(x){ var el=x[1]; if(el.querySelector('.rn-a')) return; var id=el.id;
+  links.forEach(function(x){ var id=x[1].id, el=x[1];   // 판의 표지는 제목 앞 빈 <a id> · 과목 묶음 <div id> — 붙일 자리는 그 제목
+    if(el.tagName==='A') el=el.parentElement; else if(!/^H\d$/.test(el.tagName)) el=el.querySelector('h2,h3');
+    if(!el||el.querySelector('.rn-a')) return;
     var a=document.createElement('a'); a.className='rn-a'; a.href='#'+id; a.textContent='#'; a.setAttribute('aria-label','이 절 링크 복사');
     a.onclick=function(ev){ ev.preventDefault(); ev.stopPropagation(); var u=location.origin+location.pathname+'#'+encodeURIComponent(id);
       (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){ say('링크를 복사했어요'); }, function(){ history.replaceState(history.state,'','#'+id); say('주소창에 링크를 넣었어요'); }); };
