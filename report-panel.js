@@ -33,8 +33,8 @@
     '<div class="rn-bd"><div class="rn-grp"><div class="rn-row"><span>과목</span><div class="v"></div></div>'+
     '<div class="rn-row"><span>단원</span><select class="rn-g"><option value="">선택 안 함</option></select></div>'+
     '<div class="rn-row"><span>절</span><select class="rn-p"><option value="">선택 안 함</option></select></div></div>'+
-    '<textarea class="rn-ta" placeholder="무엇이 틀렸는지 알려 주세요 (로그인 필요 없어요)"></textarea>'+
-    '<button class="rn-send" type="button" disabled>보내기</button><div class="rn-ok">보냈어요 · 고마워요</div></div>';
+    '<textarea class="rn-ta" placeholder="틀린 내용"></textarea>'+
+    '<button class="rn-send" type="button" disabled>보내기</button><div class="rn-ok">보냈어요</div></div>';
   document.body.appendChild(fab); document.body.appendChild(pan);
   /* 테마 — 자동 → 라이트 → 다크 (10-01 동하 「다크 싫어하는 사람도 · 프린트도」) · 첫 화면 고르기와 같은 rn_theme */
   var thm=document.createElement('button'); thm.className='rn-thm'; thm.type='button'; var TH=['','paper','dark'], TL={'':'자동','paper':'라이트','dark':'다크'};
@@ -62,5 +62,5 @@
     var g=G[selG.value], where=[g&&g[0], selP.value].filter(Boolean).join(' > ');
     var body=new URLSearchParams(); body.append(E_SUBJ, SUBJ); body.append(E_TEXT, (where?'[위치] '+where+'\n':'')+'[내용] '+ta.value.trim());
     fetch(FORM,{method:'POST',mode:'no-cors',body:body}).then(function(){ ta.value=''; send.textContent='보내기'; check(); ok.style.display='block'; })
-      .catch(function(){ send.disabled=false; send.textContent='다시 보내기'; alert('보내지 못했어요 — 인터넷 연결을 확인해 주세요'); }); };
+      .catch(function(){ send.disabled=false; send.textContent='다시 보내기'; alert('보내지 못했어요'); }); };
 })();

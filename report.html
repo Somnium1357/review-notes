@@ -38,11 +38,11 @@ textarea::placeholder{color:var(--ter);}
       <div class="row"><label for="g">단원</label><select id="g" disabled><option value="">선택 안 함</option></select><svg class="cv" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div>
       <div class="row"><label for="p">절</label><select id="p" disabled><option value="">선택 안 함</option></select><svg class="cv" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div>
     </div>
-    <p class="cap">단원·절은 모르면 비워 두셔도 돼요.</p>
-    <div class="grp"><textarea id="t" required placeholder="무엇이 틀렸는지 알려 주세요"></textarea></div>
+    <p class="cap">단원·절은 선택</p>
+    <div class="grp"><textarea id="t" required placeholder="틀린 내용"></textarea></div>
     <button class="send" id="b" type="submit" disabled>보내기</button>
   </form>
-  <div class="done" id="ok"><b>보냈어요</b><p>알려 주셔서 고마워요.</p><a href="index.html">목차로</a></div>
+  <div class="done" id="ok"><b>보냈어요</b><p></p><a href="index.html">목차로</a></div>
 </div>
 <script>
 /* 과목 → 단원(대주제) → 절 = 판 목차에서 뽑은 표(publish_dist.py가 빌드 때 채움) */
@@ -64,6 +64,6 @@ $('f').onsubmit=async ev=>{ ev.preventDefault(); if($('b').disabled) return; $('
   const s=$('s').value, x=TOC[s]&&TOC[s][$('g').value], where=[x&&x[0], $('p').value].filter(Boolean).join(' > ');
   const body=new URLSearchParams(); body.append(E_SUBJ, s); body.append(E_TEXT, (where?'[위치] '+where+'\n':'')+'[내용] '+$('t').value.trim());
   try{ await fetch(FORM, {method:'POST', mode:'no-cors', body}); $('f').style.display='none'; $('ok').style.display='block'; }
-  catch(e){ $('b').disabled=false; $('b').textContent='다시 보내기'; alert('보내지 못했어요 — 인터넷 연결을 확인해 주세요'); } };
+  catch(e){ $('b').disabled=false; $('b').textContent='다시 보내기'; alert('보내지 못했어요'); } };
 </script>
 </html>
