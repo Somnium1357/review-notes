@@ -41,7 +41,7 @@ body{margin:0;background:var(--bg);color:var(--label);}
   <div class="in-th" role="group" aria-label="화면 테마"><button data-th="">자동</button><button data-th="paper">라이트</button><button data-th="dark">다크</button></div>
   <p class="in-foot">틀린 내용을 발견하면 <a href="report.html">여기로 알려 주세요</a>(로그인 필요 없음 · <a href="https://github.com/Somnium1357/review-notes/issues/new">GitHub 이슈</a>도 돼요).</p>
 </div>
-<script src="kit.js?v=5e631882"></script>
+<script src="kit.js?v=d2ffa357"></script>
 <script>(function(){var b=document.querySelectorAll('.in-th button');function sync(){var v='';try{v=localStorage.getItem('rn_theme')||'';}catch(e){}b.forEach(function(x){x.classList.toggle('on',x.dataset.th===v);});}
 b.forEach(function(x){x.onclick=function(){try{x.dataset.th?localStorage.setItem('rn_theme',x.dataset.th):localStorage.removeItem('rn_theme');}catch(e){} var r=document.documentElement; x.dataset.th?r.dataset.theme=x.dataset.th:r.removeAttribute('data-theme'); sync();};});sync();})();</script>
 </html>
