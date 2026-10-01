@@ -722,6 +722,17 @@ h4.lab{font-size:13px;line-height:18px;font-weight:600;color:var(--sec);margin:1
 :root.v2 .prose{max-width:44em;color:var(--v2ink2);}
 :root.v2 .prose>p{line-height:1.7;}
 
+@media (max-width: 600px){
+  :root.v2 th{white-space:normal;}
+  :root.v2 th,:root.v2 td{padding:5px 8px 5px 0;}
+  :root.v2 .blk table.cgrid td:not(.h){min-width:2.1em;}
+  :root.v2 .blk table.cgrid th{padding:5px .35em;}
+  :root.v2 .blk table.cgrid td.h{padding-right:.5em;}
+  :root.v2 table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  :root.v2 .blk table.tauto,:root.v2 .blk table{width:auto;}
+  :root.v2 .nw{white-space:normal;}
+  :root.v2 .line{flex-wrap:wrap;max-width:100%;}
+}
 
 /* 배포본: 라이트 = 순백(페이퍼 없음) */
 :root[data-theme="white"],:root[data-theme="paper"]{--bg:#FFFFFF; --card:#FFFFFF; --fill:#F2F2F7; --label:#1D1D1F; --sec:#6E6E73; --ter:#8E8E93; --sep:#E3E3E8; --glass:rgba(255,255,255,.78); --shadow:0 0 0 .5px rgba(0,0,0,.10),0 1px 3px rgba(0,0,0,.04); --gshadow:0 0 0 .5px rgba(0,0,0,.10),0 8px 28px rgba(0,0,0,.08); --acc:#007AFF; color-scheme:light;}
