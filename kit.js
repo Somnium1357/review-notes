@@ -247,7 +247,8 @@
           if(r==='대단' || r==='절' || r==='머리줄' || r==='끝'){ cur=mk('blk full hrow'+(r==='끝'?' endb':''), pg, n); cur.appendChild(n); body=cur; return; }
            
           if(r==='칸' || r==='글칸'){ cur=mk('blk cell ttl'+(r==='글칸'?' full prosecell':''), pg, n); cur.appendChild(n); body=document.createElement('div'); body.className='blb'; cur.appendChild(body); return; }
-          if(!cur){ cur=mk('blk nolab', pg, n); body=cur; }
+           
+          if(!cur || (n.nodeType===1 && n.hasAttribute('data-own'))){ cur=mk('blk nolab', pg, n); body=cur; }
           body.appendChild(n);
         });
       });
@@ -636,9 +637,13 @@
         var L=[].filter.call(s.querySelectorAll('.vchain:not(.hz)'), function(v){ return v.offsetParent!==null && v.querySelector(':scope > .ann'); });
         if(L.length<2) return;
         var cw=L.map(function(v){ var st=v.querySelector(':scope > .stp'); return st ? st.getBoundingClientRect().width : 0; });
-        var mx=Math.max.apply(null, cw);
+         
+        var ord=cw.map(function(w,i){ return i; }).filter(function(i){ return cw[i]>0; }).sort(function(a,b){ return cw[a]-cw[b]; });
+        var grpMax={}, g=[];
+        var flushG=function(){ var m=Math.max.apply(null, g.map(function(i){ return cw[i]; })); g.forEach(function(i){ grpMax[i]=m; }); g=[]; };
+        ord.forEach(function(i){ if(g.length && cw[i]>cw[g[0]]*1.5) flushG(); g.push(i); }); if(g.length) flushG();
         L.forEach(function(v,i){
-          if(mx-cw[i]<2) return;
+          var mx=grpMax[i]; if(mx==null || mx-cw[i]<2) return;
           var fs=parseFloat(getComputedStyle(v).fontSize)||16;
           if(v.clientWidth-mx-fs < 12*fs) return;
           v.style.gridTemplateColumns=Math.ceil(mx)+'px minmax(0,1fr)'; v.classList.add('l1al');
